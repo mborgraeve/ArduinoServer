@@ -1,4 +1,4 @@
-package com.mborgraeve.arduinoServer;
+package com.mborgraeve.arduinoserver;
 
 import java.util.Arrays;
 

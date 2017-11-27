@@ -1,6 +1,6 @@
-package com.mborgraeve.arduinoServer;
+package com.mborgraeve.arduinoserver;
 
-import java.lang.annotation.Target;
+import java.time.LocalDateTime;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,7 +10,25 @@ public class DummyConfigurationController {
 
 	@RequestMapping("/")
 	public String index() {
-		return "{\"Temperature\":17.00,\"Humidity\":51.16,\"Instruction\":{\"InstrutedTemperature\":18.00,\"DefaultTemperature\":17.00,\"TimeLimit\":1509812400},\"Power\":2,\"Variator\":{\"VariatorCycle\":60,\"VariatorRatio\":2},\"Time\":1509908301}";
+		System.out.println("served at "+LocalDateTime.now());
+		return "{"
+//				+ "Temperature\":17.00,"
+//				+ "\"Humidity\":51.16,"
+//				+ "\"Instruction\":"
+//				+ "{"
+				+ "\"InstructedTemperature\":19.00,"
+				+ "\"DefaultTemperature\":12.00,"
+				+ "\"TimeLimit\":1511033110,"
+//				+ "\"UpdateDelay\":6000,"
+//				+ "},"
+//				+ "\"Power\":2,"
+//				+ "\"Variator\":"
+//				+ "{"
+				+ "\"CycleDuration\":60"
+//				+ "\"VariatorRatio\":2,"
+//				+ "},"
+//				+ "\"Time\":1509908301"
+				+ "}";
 	}
 
 }
