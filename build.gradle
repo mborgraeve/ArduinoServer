@@ -1,23 +1,40 @@
 buildscript {
     repositories {
         mavenCentral()
+        maven {
+			url "https://plugins.gradle.org/m2/"   
+        }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.8.RELEASE")
+        classpath("io.franzbecker:gradle-lombok:1.11")
     }
 }
+
+plugins{
+	id 'io.franzbecker.gradle-lombok' version '1.11'
+}
+
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
 jar {
-    baseName = 'gs-spring-boot'
+    baseName = 'arduinoServer'
     version =  '0.1.0'
+}
+
+lombok {
+	version = '1.16.18'
+	sha256 = ""
 }
 
 repositories {
     mavenCentral()
+    maven {
+		url "https://plugins.gradle.org/m2/"   
+    }
 }
 
 sourceCompatibility = 1.8
@@ -31,6 +48,9 @@ dependencies {
     compile("org.springframework.session:spring-session")
     compile("org.springframework.boot:spring-boot-devtools")
     compile("org.projectlombok:lombok")
+    //compile("com.h2database:h2")
+    //compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.hibernate:hibernate-validator")
     // tag::actuator[]
     compile("org.springframework.boot:spring-boot-starter-actuator")
     // end::actuator[]
