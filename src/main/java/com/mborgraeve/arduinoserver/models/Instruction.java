@@ -1,18 +1,28 @@
 package com.mborgraeve.arduinoserver.models;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-
-import org.springframework.format.datetime.joda.LocalDateTimeParser;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @AllArgsConstructor
+@Entity
 public class Instruction {
+
+	@Id
+	@Getter
+	@Setter
+	@NotNull
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
 
 	@Getter
 	@Setter
@@ -29,7 +39,7 @@ public class Instruction {
 	@Getter
 	@Setter
 	@NotNull
-	private LocalDateTime timelimit = 0;
+	private Date timelimit;
 
 	@Getter
 	@Setter
@@ -37,12 +47,17 @@ public class Instruction {
 	private int cycleDuration = 60;
 
 	public FlattenedInstruction toFlattenedInstruction() {
-		return new FlattenedInstruction(this.instructedTemperature, this.defaultTemperature,
-				this.timelimit.toEpochSecond(null), this.getCycleDuration());
+		return new FlattenedInstruction(this.id, this.instructedTemperature, this.defaultTemperature,
+				this.timelimit.getTime(), this.getCycleDuration());
 	}
 
 	@AllArgsConstructor
 	public class FlattenedInstruction {
+
+		@Getter
+		@Setter
+		@NotNull
+		private long id;
 
 		@Getter
 		@Setter
@@ -67,7 +82,8 @@ public class Instruction {
 		private int cycleDuration = 60;
 
 		public Instruction toInstruction() {
-return new Intruction(this.instructedTemperature, this.defaultTemperature, (new LocalDateTime()).)
+			return new Instruction(this.id, this.instructedTemperature, this.defaultTemperature,
+					new Date(this.timelimit), this.cycleDuration);
 		}
 	}
 }

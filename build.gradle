@@ -48,7 +48,10 @@ dependencies {
     compile("org.springframework.session:spring-session")
     compile("org.springframework.boot:spring-boot-devtools")
     compile("org.projectlombok:lombok")
-    //compile("com.h2database:h2")
+    // tag::data[]
+    compile("com.h2database:h2")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    // tag::data[]
     //compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.hibernate:hibernate-validator")
     // tag::actuator[]
