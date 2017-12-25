@@ -12,8 +12,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/home", "/greetings","/instruction").permitAll().anyRequest().authenticated().and().formLogin()
-				.loginPage("/login").permitAll().and().logout().permitAll();
+		http.authorizeRequests()
+			.antMatchers("/", "/greetings", "/instruction", "/h2/**").permitAll()
+			.antMatchers("/css/**", "/index").permitAll()
+			.antMatchers("/user/**").hasRole("USER").and().formLogin().loginPage("/login").failureUrl("/login-error").and().logout().permitAll();;
+		;
+		http.csrf().disable();
+		http.headers().frameOptions().disable();
 	}
 
 	@Autowired

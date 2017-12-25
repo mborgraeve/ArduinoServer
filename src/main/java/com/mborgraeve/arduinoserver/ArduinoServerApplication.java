@@ -18,7 +18,21 @@ public class ArduinoServerApplication {
 	@Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
-
+        	//TODO add security
+        	//TODO add storage in h2 with persistence, save database
+        	//TODO get instructions from database and serve them
+        	//TODO add users for security and database
+        	//TODO add planning in database (maybe gitcloud ?)
+        	//TODO Be able to create instructions
+        	//TODO Create home configuration
+        	//TODO create mean to add new thermostats
+        	//TODO serve temp depending on room
+        	//TODO put in docker
+        	//TODO creaTe receiver for IFTT
+        	//TODO create rules for temp depending on people statuses (here, not here unknown, leaving work, close) : imely, geopositionning.
+        	//TODO create config in gitcloud for routing events/iftt
+        	//TODO create event router with config from git
+        	//TODO See if smart home software already exists
             System.out.println("Let's inspect the beans provided by Spring Boot:");
 
             String[] beanNames = ctx.getBeanDefinitionNames();
