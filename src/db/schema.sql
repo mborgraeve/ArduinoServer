@@ -1,0 +1,1 @@
+create table instruction (id INT primary key, instructedTemperature float DEFAULT 10.0, defaultTemperature float DEFAULT 10.0, timeLimit timestamp DEFAULT sysdate, cycleDuration int DEFAULT 60);

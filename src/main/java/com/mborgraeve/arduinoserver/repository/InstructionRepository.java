@@ -4,6 +4,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.mborgraeve.arduinoserver.models.Instruction;
 
-public interface InstructionRepository extends CrudRepository<Instruction, Long> {
-	Instruction findById(Long id);
+
+public interface InstructionRepository extends CrudRepository<Instruction, Integer>{
+	Instruction findById(int id);
+
 }
