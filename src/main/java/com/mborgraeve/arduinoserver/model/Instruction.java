@@ -1,5 +1,6 @@
-package com.mborgraeve.arduinoserver.models;
+package com.mborgraeve.arduinoserver.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,18 +14,26 @@ import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "instruction")
 @AllArgsConstructor
-public class Instruction {
-public Instruction(float instructedTemperature, float defaultTemperature, Date timelimit,int cycleDuration) {
-	this.setInstructedTemperature(instructedTemperature);
-	this.setDefaultTemperature(defaultTemperature);
-	this.setTimelimit(timelimit);
-	this.setCycleDuration(cycleDuration);
-}
+@NoArgsConstructor
+public class Instruction implements Serializable {
+	/**
+		 * 
+		 */
+	private static final long serialVersionUID = 1239947152304184204L;
+
+	public Instruction(float instructedTemperature, float defaultTemperature, Date timelimit, int cycleDuration) {
+		this.setInstructedTemperature(instructedTemperature);
+		this.setDefaultTemperature(defaultTemperature);
+		this.setTimelimit(timelimit);
+		this.setCycleDuration(cycleDuration);
+	}
+
 	@Id
 	@Getter
 	@Setter
@@ -36,26 +45,26 @@ public Instruction(float instructedTemperature, float defaultTemperature, Date t
 	@Setter
 	@NotNull
 	@Min(5)
-	@Column
+	@Column(name="instructedtemperature")
 	private float instructedTemperature = (float) 19.0;
 
 	@Getter
 	@Setter
 	@NotNull
 	@Min(5)
-	@Column
+	@Column(name="defaulttemperature")
 	private float defaultTemperature = (float) 12.0;
 
 	@Getter
 	@Setter
 	@NotNull
-	@Column
+	@Column(name="timelimit")
 	private Date timelimit;
 
 	@Getter
 	@Setter
 	@NotNull
-	@Column
+	@Column(name="cycleduration")
 	private int cycleDuration = 60;
 
 	public FlattenedInstruction toFlattenedInstruction() {
