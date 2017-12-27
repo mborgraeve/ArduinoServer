@@ -27,11 +27,12 @@ public class Instruction implements Serializable {
 		 */
 	private static final long serialVersionUID = 1239947152304184204L;
 
-	public Instruction(float instructedTemperature, float defaultTemperature, Date timelimit, int cycleDuration) {
+	public Instruction(float instructedTemperature, float defaultTemperature, Date timelimit, int cycleDuration, float priority) {
 		this.setInstructedTemperature(instructedTemperature);
 		this.setDefaultTemperature(defaultTemperature);
 		this.setTimelimit(timelimit);
 		this.setCycleDuration(cycleDuration);
+		this.setPriority(priority);
 	}
 
 	@Id
@@ -66,6 +67,12 @@ public class Instruction implements Serializable {
 	@NotNull
 	@Column(name="cycleduration")
 	private int cycleDuration = 60;
+	
+	@Getter
+	@Setter
+	@NotNull
+	@Column(name="priority")
+	private float priority = 0f;
 
 	public FlattenedInstruction toFlattenedInstruction() {
 		return new FlattenedInstruction(this.id, this.instructedTemperature, this.defaultTemperature,
@@ -101,10 +108,5 @@ public class Instruction implements Serializable {
 		@Setter
 		@NotNull
 		private int cycleDuration = 60;
-
-		public Instruction toInstruction() {
-			return new Instruction(this.id, this.instructedTemperature, this.defaultTemperature,
-					new Date(this.timelimit), this.cycleDuration);
-		}
 	}
 }

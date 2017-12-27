@@ -37,8 +37,8 @@ public class DummyConfigurationController {
 
 	@RequestMapping(value = "/instruction/all/", produces = "application/json")
 	public Iterable<Instruction> AllInstructions() {
-		Instruction inst = new Instruction(15.0f, 12.0f, new Date(), 70);
-		Instruction inst2 = new Instruction(15.0f, 12.0f, new Date(), 70);
+		Instruction inst = new Instruction(15.0f, 12.0f, new Date(), 70, 5.0f);
+		Instruction inst2 = new Instruction(15.0f, 12.0f, new Date(), 70, 10f);
 		instructionRepository.save(inst);
 		System.out.println("served at " + LocalDateTime.now()+", id of created isntructions:"+inst.getId()+","+inst2.getId());
 		instructionRepository.save(inst2);
