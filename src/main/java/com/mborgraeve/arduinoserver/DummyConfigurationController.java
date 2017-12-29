@@ -2,6 +2,7 @@ package com.mborgraeve.arduinoserver;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +30,7 @@ public class DummyConfigurationController {
 	 * 60); }
 	 */
 	@RequestMapping(value = "/instruction/byId/{id}", produces = "application/json")
-	public PlanningInstruction CurrentInstruction(@PathVariable("id") int id) {
+	public PlanningInstruction getInstructionById(@PathVariable("id") int id) {
 		System.out.println("served at " + LocalDateTime.now());
 		return instructionRepository.findById(id);
 	}
@@ -43,6 +44,15 @@ public class DummyConfigurationController {
 		instructionRepository.save(inst2);
 		System.out.println("new :"+inst2.getId() );
 		return instructionRepository.findAll();
+	}
+	
+	@RequestMapping(value = "/instruction/current/", produces = "application/json")
+	public PlanningInstruction CurrentInstruction() {
+		System.out.println("served at " + LocalDateTime.now());
+		
+		List<PlanningInstruction> instructions = instructionRepository.findCurrent();
+		PlanningInstruction tmp =instructions.isEmpty()?null:instructions.get(0); 
+		return tmp;
 	}
 
 }

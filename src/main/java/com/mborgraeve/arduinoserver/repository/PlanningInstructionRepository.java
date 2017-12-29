@@ -1,5 +1,7 @@
 package com.mborgraeve.arduinoserver.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -9,7 +11,7 @@ import com.mborgraeve.arduinoserver.model.PlanningInstruction;
 public interface PlanningInstructionRepository extends JpaRepository<PlanningInstruction, Integer>{
 	PlanningInstruction findById(int id);
 	
-	@Query("select id, instructedTemperature, defaultTemperature, startDate, endDate, cycleDuration from PlanningInstruction where START_DATE > CURRENT_TIMESTAMP and END_DATE < CURRENT_TIMESTAMP order by priority desc")
-	PlanningInstruction findCurrent();
+	@Query("select id, instructedTemperature, defaultTemperature, startDate, endDate, cycleDuration, priority from PlanningInstruction where START_DATE < CURRENT_TIMESTAMP and END_DATE > CURRENT_TIMESTAMP order by priority desc")
+	List<PlanningInstruction> findCurrent();
 // create method to find current instruction. Probably something like add an int priority to instructions and sort them out (float to be able to reorganize them ?).
 }
