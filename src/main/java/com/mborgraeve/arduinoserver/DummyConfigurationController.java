@@ -8,37 +8,36 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mborgraeve.arduinoserver.model.Instruction;
-import com.mborgraeve.arduinoserver.repository.InstructionRepository;
+import com.mborgraeve.arduinoserver.model.PlanningInstruction;
+import com.mborgraeve.arduinoserver.repository.PlanningInstructionRepository;
 
 @RestController
 public class DummyConfigurationController {
 
 	@Autowired
-	InstructionRepository instructionRepository;
-/*
-	@RequestMapping(value = "/instruction", produces = "application/json")
-	public Instruction dummyInstruction() {
-		System.out.println("served at " + LocalDateTime.now());
-		return new Instruction(0, 19.0f, 15.0f, (new Date()), 60);
-	}
+	PlanningInstructionRepository instructionRepository;
 
-	@RequestMapping(value = "/instruction/now", produces = "application/json")
-	public Instruction CurrentInstruction() {
-		System.out.println("served at " + LocalDateTime.now());
-		return new Instruction(0, 19.0f, 15.0f, (new Date()), 60);
-	}
-*/
+	/*
+	 * @RequestMapping(value = "/instruction", produces = "application/json") public
+	 * Instruction dummyInstruction() { System.out.println("served at " +
+	 * LocalDateTime.now()); return new Instruction(0, 19.0f, 15.0f, (new Date()),
+	 * 60); }
+	 * 
+	 * @RequestMapping(value = "/instruction/now", produces = "application/json")
+	 * public Instruction CurrentInstruction() { System.out.println("served at " +
+	 * LocalDateTime.now()); return new Instruction(0, 19.0f, 15.0f, (new Date()),
+	 * 60); }
+	 */
 	@RequestMapping(value = "/instruction/byId/{id}", produces = "application/json")
-	public Instruction CurrentInstruction(@PathVariable("id") int id) {
+	public PlanningInstruction CurrentInstruction(@PathVariable("id") int id) {
 		System.out.println("served at " + LocalDateTime.now());
 		return instructionRepository.findById(id);
 	}
 
 	@RequestMapping(value = "/instruction/all/", produces = "application/json")
-	public Iterable<Instruction> AllInstructions() {
-		Instruction inst = new Instruction(15.0f, 12.0f, new Date(), 70, 5.0f);
-		Instruction inst2 = new Instruction(15.0f, 12.0f, new Date(), 70, 10f);
+	public Iterable<PlanningInstruction> AllInstructions() {
+		PlanningInstruction inst = new PlanningInstruction(15.0f, 12.0f, new Date(), new Date((new Date()).getTime()+1l*1000l*60l*60l), 70, 5.0f);
+		PlanningInstruction inst2 = new PlanningInstruction(15.0f, 12.0f, new Date(),new Date((new Date()).getTime()+1l*1000l*60l*60l),  70, 10f);
 		instructionRepository.save(inst);
 		System.out.println("served at " + LocalDateTime.now()+", id of created isntructions:"+inst.getId()+","+inst2.getId());
 		instructionRepository.save(inst2);
