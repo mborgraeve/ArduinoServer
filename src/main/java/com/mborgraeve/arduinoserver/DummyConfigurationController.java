@@ -1,5 +1,6 @@
 package com.mborgraeve.arduinoserver;
 
+import com.mborgraeve.arduinoserver.model.ArduinoInstruction;
 import com.mborgraeve.arduinoserver.model.PlanningInstruction;
 import com.mborgraeve.arduinoserver.repository.PlanningInstructionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +18,7 @@ public class DummyConfigurationController {
     @Autowired
     PlanningInstructionRepository instructionRepository;
 
-    /*
-     * @RequestMapping(value = "/instruction", produces = "application/json") public
-     * Instruction dummyInstruction() { System.out.println("served at " +
-     * LocalDateTime.now()); return new Instruction(0, 19.0f, 15.0f, (new Date()),
-     * 60); }
-     *
-     * @RequestMapping(value = "/instruction/now", produces = "application/json")
-     * public Instruction CurrentInstruction() { System.out.println("served at " +
-     * LocalDateTime.now()); return new Instruction(0, 19.0f, 15.0f, (new Date()),
-     * 60); }
-     */
-    @RequestMapping(value = "/instruction/byId/{id}", produces = "application/json")
+    @RequestMapping(value = "/instruction/byId/{id}/", produces = "application/json")
     public PlanningInstruction getInstructionById(@PathVariable("id") int id) {
         System.out.println("served at " + LocalDateTime.now());
         return instructionRepository.findById(id);
@@ -54,4 +44,11 @@ public class DummyConfigurationController {
         return tmp;
     }
 
+    @RequestMapping(value = "/arduino/current/", produces = "application/json")
+    public ArduinoInstruction findCurrentArduinoInstruction() {
+        System.out.println("served at " + LocalDateTime.now());
+
+        List<PlanningInstruction> instructions = instructionRepository.findCurrent();
+        return instructions.isEmpty() ? null : instructions.get(0).toArduinoInstruction();
+    }
 }

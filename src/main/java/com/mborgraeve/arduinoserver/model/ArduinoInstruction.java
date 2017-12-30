@@ -7,33 +7,23 @@ import lombok.Setter;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+@Getter
+@Setter
 @AllArgsConstructor
 public class ArduinoInstruction {
 
-    @Getter
-    @Setter
-    @NotNull
-    private int id;
-
-    @Getter
-    @Setter
     @NotNull
     @Min(5)
-    private float instructedTemperature = (float) 19.0;
+    private float instructedTemperature;
 
-    @Getter
-    @Setter
     @NotNull
     @Min(5)
-    private float defaultTemperature = (float) 12.0;
+    private float defaultTemperature;
 
-    @Getter
-    @Setter
     @NotNull
-    private long timelimit = 0;
+    @Min(0)
+    private long timelimit;
 
-    @Getter
-    @Setter
     @NotNull
-    private int cycleDuration = 60;
+    private int cycleDuration;
 }

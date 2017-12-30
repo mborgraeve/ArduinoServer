@@ -57,8 +57,8 @@ public class PlanningInstruction implements Serializable {
         this.setPriority(priority);
     }
 
-    public ArduinoInstruction toFlattenedInstruction() {
-        return new ArduinoInstruction(this.id, this.instructedTemperature, this.defaultTemperature,
+    public ArduinoInstruction toArduinoInstruction() {
+        return new ArduinoInstruction(this.instructedTemperature, this.defaultTemperature,
                 this.endDate.getTime(), this.getCycleDuration());
     }
 }
