@@ -7,28 +7,30 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.8.RELEASE")
-        classpath("io.franzbecker:gradle-lombok:1.11")
+        classpath("io.franzbecker:gradle-lombok:1.14")
     }
 }
 
 plugins{
-	id 'io.franzbecker.gradle-lombok' version '1.11'
+	id 'io.franzbecker.gradle-lombok' version '1.14'
 }
 
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
 jar {
     baseName = 'arduinoServer'
     version =  '0.1.0'
 }
 
-lombok {
-	version = '1.16.18'
-	sha256 = ""
-}
+//lombok {
+//	version = '1.18.2'
+//	sha256 = ""
+//}
 
 repositories {
     mavenCentral()
@@ -36,7 +38,17 @@ repositories {
 		url "https://plugins.gradle.org/m2/"   
     }
 }
+//Needed to copy libs from docker repo into the shared folder for idea to see them.
 
+
+task copyTestLibs(type: Copy) {
+    from configurations.runtime
+    into "$buildDir/runtimeLibs"
+}
+task copyLibs(type: Copy) {
+    from configurations.testRuntime
+    into "$buildDir/testLibs"
+}
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
